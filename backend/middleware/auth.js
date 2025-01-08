@@ -19,7 +19,7 @@ function authenticate(req, res, next) {
   const token = authHeader.split(" ")[1];
 
   try {
-    const payload = jwt.verify(token, '2008');
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
     req.user = payload; // Anexa os dados do token ao objeto `req`
     next();
   } catch (err) {

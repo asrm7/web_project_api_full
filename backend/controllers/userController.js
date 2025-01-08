@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const HttpStatus = require("../utils/httpStatus");
 const GenericResponses = require("../utils/responses");
+const dotenv = require("dotenv");
 
 // Função para lidar com erros e personalizar mensagens
 function handleUserError(err, res) {
@@ -119,7 +120,7 @@ const userController = {
 
       const token = jwt.sign(
         { _id: user._id },
-        '2008',
+        process.env.JWT_SECRET,
         { expiresIn: "7d" }
       );
 
