@@ -62,12 +62,6 @@ export default function App() {
     setCardToDelete(card); // Armazena o card que se deseja eliminar
     setisDeletePopupOpen(true); // Abre o popup
   }
-  // Obtem os cards iniciais
-  useEffect(() => {
-    api.getInitialCards().then((res) => {
-      setCards(res);
-    });
-  }, []);
 
   function handleCardLike(card) {
     // Verifica se o card recebeu like
@@ -114,28 +108,22 @@ export default function App() {
     setSelectedCard(null);
     setisDeletePopupOpen(false);
   };
-  useEffect(() => {
-    api
-      .getUserInfo()
-      .then((userData) => {
-        setCurrentUser(userData); // Armazena os dados do usuario atual
-        
-      })
-      .catch((err) => {
-        console.error(`Erro obtendo os dados do usuario: ${err}`); //Se ha um erro, será exibido no console;
-      });
-  }, []);
+  
   useEffect(() => {
     if (localStorage.getItem("jwt")) {
       auth
         .getToken(localStorage.getItem("jwt"))
         .then((data) => {
           if (data) {
-            
+            setCurrentUser(data); // Armazena os dados do usuario atual
             setEmailUser(data.email);
             console.log(data.email);
             setIsLogged(true);
             navigate("/");
+            // Obtem os cards iniciais
+            api.getInitialCards().then((res) => {
+              setCards(res);
+            });
           } else {
             navigate("/signup");
             throw new Error("Token invalido");
@@ -148,8 +136,6 @@ export default function App() {
     }
   }, [isLogged, navigate]);
 
- 
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -157,7 +143,6 @@ export default function App() {
           loggedIn={isLogged}
           handleLogout={signOff}
           emailUser={emailUser}
-          
         />
 
         <Routes>
