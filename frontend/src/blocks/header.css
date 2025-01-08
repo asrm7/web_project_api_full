@@ -1,0 +1,36 @@
+.header {
+  width: 880px;
+  height: 74px;
+  margin: 0 auto;
+  border-bottom: 1px #545454 solid;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header__logo {
+  max-width: 173px;
+  max-height: 33px;
+}
+.header__info{
+  display: flex;
+  justify-content:space-between ;
+  align-items:center ;
+}
+.header__subheader{
+  
+  color: white;
+  font-size: 18px;
+  line-height: 22px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.header__email{
+  margin-right: 56px;
+  color: white;
+}
+@media screen and (max-width: 320px) {
+  .header__logo {
+    max-width: 120px;
+    max-height: 24px;
+  }
+}
