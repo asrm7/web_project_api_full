@@ -7,16 +7,20 @@ const cardsRouter = require("./routes/cards");
 const HttpStatus = require("./utils/httpStatus"); // Importa os códigos de status
 const GenericResponses = require("./utils/responses"); // Importa as respostas genéricas
 const cors = require("cors");
+const { requestLogger, errorLogger } = require('./middleware/logger');
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
-
 app.use(bodyParser.json());
-app.use(cors({
-  origin: "*"
-}));
+app.use(cors());
+app.options('*', cors());
+app.use(express.json());
+app.use(requestLogger);
+
+
+
 
 // Conexão com o MongoDB
 mongoose.connect(process.env.CONNECTION)
