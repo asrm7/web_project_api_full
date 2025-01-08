@@ -6,7 +6,7 @@ const usersRouter = require("./routes/users");
 const cardsRouter = require("./routes/cards");
 const HttpStatus = require("./utils/httpStatus"); // Importa os códigos de status
 const GenericResponses = require("./utils/responses"); // Importa as respostas genéricas
-const cors = required("cors");
+const cors = require("cors");
 
 dotenv.config();
 
