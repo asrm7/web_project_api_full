@@ -1,4 +1,4 @@
-const base_url = 'https://web-project-api-full-wriv.onrender.com/';
+const base_url = 'https://web-project-api-full-wriv.onrender.com';
 
 export const register = (email, password) => {
   return fetch(`${base_url}/signup`, {

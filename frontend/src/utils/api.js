@@ -141,7 +141,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: "https://web-project-api-full-wriv.onrender.com/",
+  baseUrl: "https://web-project-api-full-wriv.onrender.com",
   headers: {
      "Content-Type": "application/json",
   },
