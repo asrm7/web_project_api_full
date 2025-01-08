@@ -15,7 +15,7 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 
 // Conexão com o MongoDB
-mongoose.connect("mongodb://localhost:27017/aroundb")
+mongoose.connect(process.env.CONNECTION)
   .then(() => console.log("Conectado ao MongoDB"))
   .catch(err => console.error("Erro ao conectar ao MongoDB:", err));
 

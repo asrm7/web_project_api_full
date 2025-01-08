@@ -133,7 +133,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: "http://localhost:3000",
+  baseUrl: "https://web-project-api-full-wriv.onrender.com/",
   headers: {
      authorization: " 55878f5d-532c-423a-a4a7-6c74dc5acc4e",
      "Content-Type": "application/json",
