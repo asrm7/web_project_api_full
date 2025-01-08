@@ -1,12 +1,20 @@
+import * as token from "./token.js";
 class Api {
   constructor({ baseUrl, headers }) {
     this.baseUrl = baseUrl;
     this.headers = headers;
   }
 
+  _getAuthorizationHeaders() {
+    return {
+      ...this._headers,
+      authorization: `Bearer ${token.getToken()}`,
+    }
+  }
+
   getUserInfo() {
     return fetch(`${this.baseUrl}/users/me`, {
-      headers: this.headers,
+      headers: this._getAuthorizationHeaders(),
     })
       .then((res) => {
         if (res.ok) {
@@ -22,7 +30,7 @@ class Api {
 
   getInitialCards() {
     return fetch(`${this.baseUrl}/cards`, {
-      headers: this.headers,
+      headers: this._getAuthorizationHeaders(),
     })
       .then((res) => {
         if (res.ok) {
@@ -38,7 +46,7 @@ class Api {
   updateUserProfile(name, about) {
     return fetch(`${this.baseUrl}/users/me`, {
       method: "PATCH",
-      headers: this.headers,
+      headers: this._getAuthorizationHeaders(),
       body: JSON.stringify({
         name,
         about,
@@ -58,7 +66,7 @@ class Api {
   createCard(link, name) {
     return fetch(`${this.baseUrl}/cards`, {
       method: "POST",
-      headers: this.headers,
+      headers: this._getAuthorizationHeaders(),
       body: JSON.stringify({
         link,
         name,
@@ -79,7 +87,7 @@ class Api {
   deleteCard(cardId) {
     return fetch(`${this.baseUrl}/cards/${cardId}`, {
       method: "DELETE",
-      headers: this.headers,
+      headers: this._getAuthorizationHeaders(),
     })
       .then((res) => {
         if (res.ok) {
@@ -97,7 +105,7 @@ class Api {
     
     return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
       method: isLiked ? "DELETE" : "PUT", 
-      headers: this.headers,
+      headers: this._getAuthorizationHeaders(),
     })
       .then((res) => {
         if (res.ok) {
@@ -114,7 +122,7 @@ class Api {
   updateAvatar(avatar) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: "PATCH",
-      headers: this.headers,
+      headers: this._getAuthorizationHeaders(),
       body: JSON.stringify({
         avatar,
       }),
@@ -135,7 +143,6 @@ class Api {
 const api = new Api({
   baseUrl: "https://web-project-api-full-wriv.onrender.com/",
   headers: {
-     authorization: " 55878f5d-532c-423a-a4a7-6c74dc5acc4e",
      "Content-Type": "application/json",
   },
 });
