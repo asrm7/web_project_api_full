@@ -50,7 +50,7 @@ export default function Main({
           />
         </div>
         <template className="elements">
-          {cards.map(card => (
+          {cards?.map(card => (
              <Card 
                key={card._id}
                card={card}

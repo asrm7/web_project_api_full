@@ -52,7 +52,7 @@ export default function App() {
   };
 
   const handleAddPlaceSubmit = async ({ link, name }) => {
-    return await api.createCard(link, name).then((newCard) => {
+    return await api.createCard(link, name, currentUser._id).then((newCard) => {
       setCards([newCard, ...cards]);
       closeAllPopups();
     });
@@ -65,14 +65,15 @@ export default function App() {
 
   function handleCardLike(card) {
     // Verifica se o card recebeu like
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((likeId) => likeId === currentUser._id);
+
 
     // Envía uma pedido a API e obtem os dados atualizados
     api
       .changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
         setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
+          state?.map((c) => (c._id === card._id ? newCard : c))
         );
       })
       .catch((err) => console.error(`Erro ao dar like/deslike: ${err}`));
@@ -117,11 +118,11 @@ export default function App() {
           if (data) {
             setCurrentUser(data); // Armazena os dados do usuario atual
             setEmailUser(data.email);
-            console.log(data.email);
             setIsLogged(true);
             navigate("/");
             // Obtem os cards iniciais
             api.getInitialCards().then((res) => {
+              
               setCards(res);
             });
           } else {

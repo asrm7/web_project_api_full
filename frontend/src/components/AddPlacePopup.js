@@ -18,8 +18,8 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
      e.preventDefault();
      setIsPatching(true);
     onAddPlaceSubmit({
-      name: title,
       link,
+      name: title,
     }).finally(() => {
       setIsPatching(false);
       setTitle("");

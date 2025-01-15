@@ -1,9 +1,12 @@
+
 const base_url = 'https://web-project-api-full-wriv.onrender.com';
+//const base_url = 'http://localhost:3000';
 
 export const register = (email, password) => {
-  return fetch(`${base_url}/signup`, {
+  return fetch(`${base_url}/users/signup`, {
     method: 'POST',
     headers: {
+      Accept: "application/json",
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
@@ -23,7 +26,7 @@ export const register = (email, password) => {
 };
 
 export const authorize = (email, password) => {
-  return fetch(`${base_url}/signin`, {
+  return fetch(`${base_url}/users/signin`, {
     method: 'POST',
 
     headers: {

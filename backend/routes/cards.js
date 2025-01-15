@@ -13,9 +13,9 @@ router.post("/", auth, cardController.createCard);
 router.delete("/:cardId", auth, cardController.deleteCard);
 
 // PUT /cards/:cardId/likes
-router.put("/:cardId/likes", auth, cardController.likeCard);
+router.put("/likes/:cardId", auth, cardController.likeCard);
 
 // DELETE /cards/:cardId/likes
-router.delete("/:cardId/likes", auth, cardController.dislikeCard);
+router.delete("/likes/:cardId", auth, cardController.dislikeCard);
 
 module.exports = router;

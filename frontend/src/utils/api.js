@@ -7,7 +7,7 @@ class Api {
 
   _getAuthorizationHeaders() {
     return {
-      ...this._headers,
+      ...this.headers,
       authorization: `Bearer ${token.getToken()}`,
     }
   }
@@ -34,6 +34,7 @@ class Api {
     })
       .then((res) => {
         if (res.ok) {
+          
           return res.json();
         }
         return Promise.reject(`Error: ${res.status}`);
@@ -63,23 +64,27 @@ class Api {
       });
   }
 
-  createCard(link, name) {
+  createCard(link, name, owner) {
+    
     return fetch(`${this.baseUrl}/cards`, {
       method: "POST",
       headers: this._getAuthorizationHeaders(),
       body: JSON.stringify({
         link,
         name,
+        owner,
       }),
     })
       .then((res) => {
         if (res.ok) {
+         
           return res.json();
         }
         
         return Promise.reject(`Error: ${res.status}`);
       })
       .catch((error) => {
+        
         console.log(error);
       });
   }
@@ -142,6 +147,7 @@ class Api {
 
 const api = new Api({
   baseUrl: "https://web-project-api-full-wriv.onrender.com",
+  //baseUrl:"http://localhost:3000",
   headers: {
      "Content-Type": "application/json",
   },

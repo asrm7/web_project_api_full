@@ -26,9 +26,10 @@ function handleCardError(err, res) {
 const cardController = {
   // Listar todos os cartões
   async getAllCards(req, res) {
+
     try {
       const cards = await Card.find({});
-      res.status(HttpStatus.OK).send(cards);
+      return res.status(HttpStatus.OK).send(cards);
     } catch (err) {
       handleCardError(err, res);
     }
@@ -36,11 +37,14 @@ const cardController = {
 
   // Criar um novo cartão
   async createCard(req, res) {
+
     try {
-      const { name, link } = req.body;
-      const card = await Card.create({ name, link, owner: req.user._id });
+      const { link, name, owner } = req.body;
+      const card = await Card.create({ link, name, owner });
+
       res.status(HttpStatus.CREATED).send(card);
     } catch (err) {
+      console.log("teste entrou")
       handleCardError(err, res);
     }
   },
@@ -48,9 +52,11 @@ const cardController = {
   // Deletar um cartão
   async deleteCard(req, res) {
     try {
-      const card = await Card.findById(req.params.cardId).orFail();
+      const card = await Card.findById(req.params.cardId).orFail(() => {
+        throw new Error("Card not found");
+      });
       // Verifica se o cartão pertence ao usuário autenticado
-      if (card.userId.toString() !== req.user._id.toString()) {
+      if (card.owner.toString() !== req.user._id.toString()) {
         return res
           .status(HttpStatus.FORBIDDEN)
           .json({
@@ -62,6 +68,9 @@ const cardController = {
         .status(HttpStatus.OK)
         .json({ message: "Cartão deletado com sucesso." });
     } catch (err) {
+      if (err.message === "Card not found") {
+        return res.status(HttpStatus.NOT_FOUND).json({ message: "Cartão não encontrado." });
+      }
       handleCardError(err, res);
     }
   },

@@ -11,7 +11,7 @@ export default function Card({
     const currentUser = useContext(CurrentUserContext); //Obtem o valor de contexto de CurrentUserContext
 
     // Verificando se o usuario atual és o propietario do card atual
-    const isOwn = card.owner._id === currentUser._id;
+    const isOwn = card.owner === currentUser._id;
 
     // Criando uma variavel que armazena a `className` para o botao eliminar
     const cardDeleteButtonClassName = `${
@@ -19,7 +19,7 @@ export default function Card({
     }`;
 
     // Verifica se o usuario atual deu "like" no cartao
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((likeId) => likeId === currentUser._id);
 
     // Cria uma variavel que armazena a `className` para o botao like
     const cardLikeButtonClassName = `elements__like ${

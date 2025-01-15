@@ -12,7 +12,7 @@ const cardSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      validator: (v) => isURL(v, { protocols: ["http", "https"], require_protocol: true }),
+      validator: (v) => isURL(v),
       message: "O campo link deve ser um link válido.",
     },
   },
@@ -22,8 +22,7 @@ const cardSchema = new mongoose.Schema({
     required: true,
   },
   likes: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: "user",
+    type: [{ type:mongoose.Schema.Types.ObjectId, ref:"user"}],
     default: [],
   },
   createdAt: {

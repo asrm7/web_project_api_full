@@ -1,4 +1,4 @@
-const TOKEN_KEY = "user-token";
+const TOKEN_KEY = "jwt";
 
 export const setToken = (token) => {
   return localStorage.setItem(TOKEN_KEY, token);
